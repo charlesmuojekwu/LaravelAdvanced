@@ -29,6 +29,10 @@ Route::get('/', function () {
 
 Route::resource('user', UserController::class);
 
+Route::get('user-create', [UserController::class, 'creatingEvent']);
+Route::get('user-update', [UserController::class, 'updateEvent']);
+Route::get('user-delete', [UserController::class, 'deleteEvent']);
+
 
 ## output the event/ 
 Route::get('/event', function() {

@@ -7,10 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Events\UserCreated;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    // i ADDED using event to for model lifcycle -> way 1
+    protected $dispatchesEvents = [
+        'creating' => UserCreated::class
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'sub'
     ];
 
     /**
@@ -41,4 +48,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    //i ADDED using boot method to for model lifcycle -> way 2
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updated(function($user) {
+            dd('From boot method',$user);
+        });
+    }
 }

@@ -7,7 +7,11 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Events\OrderShipped;
+use App\Events\UserCreated;
 use App\Listeners\SendShipmentNotification;
+use App\Listeners\UserCreatedListener;
+use App\Observers\UserObserver;
+use App\Models\User;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -25,6 +29,11 @@ class EventServiceProvider extends ServiceProvider
         OrderShipped::class => [
             SendShipmentNotification::class,
         ],
+
+        ## added for model event listener
+        UserCreated::class => [
+            UserCreatedListener::class
+        ],
     ];
 
     /**
@@ -34,6 +43,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // register usermodel observer
+        User::observe(UserObserver::class);
     }
 }
