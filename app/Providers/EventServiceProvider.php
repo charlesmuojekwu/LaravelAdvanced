@@ -10,8 +10,10 @@ use App\Events\OrderShipped;
 use App\Events\UserCreated;
 use App\Listeners\SendShipmentNotification;
 use App\Listeners\UserCreatedListener;
+use App\Models\Category;
 use App\Observers\UserObserver;
 use App\Models\User;
+use App\Observers\CategoryObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -45,5 +47,8 @@ class EventServiceProvider extends ServiceProvider
     {
         // register usermodel observer
         User::observe(UserObserver::class);
+
+        //register category observer
+        Category::observe(CategoryObserver::class);
     }
 }

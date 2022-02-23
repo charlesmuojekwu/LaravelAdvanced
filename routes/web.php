@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use App\Events\OrderShipped;
+use App\Http\Controllers\CategoryController;
 use App\Jobs\SendReminderEmail;
 use App\Models\User;
 use App\Notifications\TaskCompleted;
@@ -25,6 +26,9 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('show-categories/{category}', [CategoryController::class, 'show'])->name('show.category');
 
 
 Route::resource('user', UserController::class);

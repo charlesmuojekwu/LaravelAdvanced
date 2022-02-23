@@ -21,6 +21,22 @@
         </style>
     </head>
     <body class="antialiased">
+
+
+        {{-- I ADDED FOR CATEGORIES SELECT WITH CACHE --}}
+        <div class="" style="float:left">
+              <h3>Categories</h3>
+            <div class="dropdown-menu dropdown-menu-right">
+                
+                    @foreach ($categories as $category)
+                       <a style="display: block" href="{{ route('show.category',$category) }}">{{ $category->name }}</a>
+                    @endforeach
+                
+            </div>
+ 
+        </div>
+
+
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -40,6 +56,13 @@
                     @endauth
                 </div>
             @endif
+
+            
+           
+
+
+
+
 
             {{-- ADDED TO CHOOSE LANGUAGE --}}
             <div class="hidden fixed top-0 left-0 px-6 py-4 sm:block">
